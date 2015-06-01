@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>DRUGI</title>
+    <script>
+        /*Napravite aplikaciju koja će u jedno polje upisivati ime i godine starosti osobe. Svaki 
+podatak (ime, godine) je zaseban element polja. Nakon unosa treba ispisati podatke 
+prema prikazanom predlošku.*/
+
+        function Ispis(polje) {
+            var najstarijiIme = polje[0];
+            var najstarijiGodine = polje[1];
+
+            var najmlađiIme = polje[0];
+            var najmlađiGodine = polje[1];
+
+            /*Rješenje sa 1 for petljom*/
+            for (var i = 0; i < polje.length; i += 2) {
+                zbroj += polje[i+1];
+
+                if(polje[i+1] > najstarijiGodine){
+                    najstarijiIme = polje[i];
+                    najstarijiGodine = polje[i + 1];
+                }
+
+                if (polje[i+1] < najmlađiGodine) {
+                    najmlađiIme = polje[i];
+                    najmlađiGodine = polje[i + 1];
+                }
+
+                /*rješenje sa 2 for petlje*/
+                //for (var j = 1; j < polje.length; j += 2) {
+                //    zbroj += polje[j];
+
+                //    if (polje[j] > najstarijiGodine) {
+                //        najstarijiIme = polje[j-1];
+                //        najstarijiGodine = polje[j];                        
+                //    }
+                //    if(polje[j] < najmlađiGodine){
+                //        najmlađiIme = polje[j-1];
+                //        najmlađiGodine = polje[j];
+                //    }
+                //}//kraj unutranjeg for-a
+
+
+                }//kraj vanjskog for-a
+            
+
+            var prosjek = zbroj / polje.length;
+
+            ispis += "Ukupno upisano osoba " + polje.length / 2 + "\n";
+            ispis += "Najmlađa osoba jest " + najmlađiIme + ", a ima " + najmlađiGodine + " godina.\n";
+            ispis += "Najstarija osoba jest " + najstarijiIme + ", a ima " + najstarijiGodine + " godina.\n";
+            ispis += "Prosjek godina svih osoba jest " + prosjek.toFixed(1);
+
+            alert(ispis);
+
+        } //kraj funkcije
+
+
+
+        //glavni -> GLOBALNI DIO
+        var polje = new Array();
+        var zbroj = 0;
+        
+        var ispis = "";
+
+        do {
+
+            ime = prompt("Unesite ime osobe:");
+            godine = parseInt(prompt("Unesite godine te osobe:"));
+            polje.push(ime);
+            polje.push(godine);
+
+        } while (confirm("još?"));
+
+        Ispis(polje);
+
+        
+
+        
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

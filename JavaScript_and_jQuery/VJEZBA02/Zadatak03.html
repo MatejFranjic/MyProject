@@ -1,0 +1,41 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>2.3</title>
+    <script>
+        /*Napravite aplikaciju koja će za upisanu rečenicu ispisati da li je rečenica palindrom. 
+Palindromi su riječi ili rečenice koje ako se čitaju obrnutim redom daju identično 
+značenje kao i pravilnim čitanjem. */
+
+        var obično = prompt("Unesite rečenicu:"); //to je unio
+        var palindrom = obično.split("").reverse().join(""); //ja ga okrenuo
+        alert(palindrom);
+
+        provjera = "";
+        for (var i = obično.length-1; i >= 0; i--) {
+            provjera += obično[i];
+        }
+
+        alert(provjera);
+
+        if(provjera.toLowerCase() == obično.toLowerCase()){
+            alert("Vaša rečenica je palindrom!");
+        }
+        else {
+            alert("Vaša rečenica nije palindrom!");
+        }
+            
+        
+
+
+
+
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

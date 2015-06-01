@@ -1,0 +1,39 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>3.1</title>
+    <script>
+        /*Napišite program koji za dani dvoznamenkasti broj ispisuje njegov obrnuti broj. Npr. 
+za broj 42, potrebno je ispisati 24. U slučaju da korisnik unese vrijednost koja nije broj 
+diže se iznimka. Ako korisnik unese broj koji nije dvoznamenkast diže se iznimka. 
+Korisnik može ponoviti unos neograničen broj puta. */
+        do {
+            try {
+                //u try ide glavni dio koda jer try = POKUŠAJ
+                var broj = parseInt(prompt("Unesite jedan dvoznamenkasti broj:"));
+                var Greska = new Error();
+
+                if (isNaN(broj)) {                    
+                    Greska.message = 'Niste unijeli broj!';
+                    throw Greska;
+                }
+                else if(broj < 10 || broj > 100){                    
+                    Greska.message = 'Niste unijeli dvoznamenkasti broj!';
+                    throw Greska;
+                }
+                else {
+                    alert(broj.toString().split("").reverse().join(""));
+                }
+
+            } catch (ex) {
+                alert(ex);
+            }
+
+        } while (confirm("Još?"));
+        
+    </script>
+</head>
+<body>
+
+</body>
+</html>

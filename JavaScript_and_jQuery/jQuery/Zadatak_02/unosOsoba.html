@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>Unos Osoba</title>
+    <style>
+        body {
+            font-family:'Segoe UI', sans-serif;
+        }
+        label {
+            display:block;
+            margin-bottom:5px;
+        }
+        input, div {
+            -moz-box-sizing: border-box;
+            -webkit-box-sizing: border-box;
+            box-sizing: border-box;
+        }
+        input {
+            border:1px solid #ccc;
+            width:200px;
+            padding:5px;
+            font-weight:bold;
+        }
+        #submit {
+            margin-top:5px;
+        }
+        div#container {
+            overflow:auto;
+        }
+        div#obrazac, div#listaStudenata {
+            width:300px;
+            float:left;
+        }
+        fieldset {
+            border:1px solid #ccc;
+        }
+        </style>
+    <script src="jquery-1.11.2.min.js"></script>
+    <script>
+        function ispis() {
+            var ime = $("#txtIme").val();
+            var prezime = $("#txtPrezime").val();
+            var email = $("#txtEmail").val();
+
+            var tekst = ime + ' ' +prezime+' ['+email+']';
+
+            var ul = $("ul").append(dodaj(tekst));
+
+        }
+
+        function dodaj(tekst) {
+            var li = document.createElement("li");
+            li.appendChild(document.createTextNode(tekst));
+            return li;
+        }
+
+        //reset form fields function
+        function reset() {
+            var ime = $("#txtIme").val("");
+            var prezime = $("#txtPrezime").val("");
+            var email = $("#txtEmail").val("");
+            ime.focus();
+        }
+
+        $(document).ready(function () {
+
+            $("#btnSubmit").on('click', ispis).on('click', reset);
+
+        });
+
+
+    </script>
+</head>
+<body>
+    <div id="container">
+        <fieldset>
+            <legend>Podaci o studentima</legend>
+                <div id="obrazac">    
+                        <div>
+                            <label for="txtIme">Ime:</label>
+                            <input type="text" id="txtIme"  />
+                        </div>
+
+                        <div>
+                            <label for="txtPrezime">Prezime:</label>
+                            <input type="text" id="txtPrezime" />
+                        </div>
+
+                        <div>
+                            <label for="txtEmail">E-mail:</label>
+                            <input type="text" id="txtEmail" />
+                        </div>
+                        <div>                
+                            <input type="submit" value="Dodaj" id="btnSubmit" />
+                        </div>
+
+           
+                </div>
+                <div id="listaStudenata">
+                    <ul>
+                    </ul>
+                </div>
+         </fieldset>
+    </div>
+</body>
+
+</html>

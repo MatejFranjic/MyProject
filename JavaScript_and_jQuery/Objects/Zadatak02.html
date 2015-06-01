@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Zadatak 02</title>
+    <script>
+        /*Napravite aplikaciju koja unosi podatke o osobama dok god to korisnik želi. Osobu 
+definira ime, prezime i godine starosti. Osoba ima metodu Punoljetan() koja vraća 
+istinu ako je osoba punoljetna. Također Osoba premošćuje ugrađenu metodu 
+toString() čijim pozivom se vraćaju podaci osobe prema predlošku Ime Prezime 
+[godine]. Nakon unosa treba ispisati sve punoljetne osobe prema spomenutom 
+predlošku.*/
+        function Osoba() {
+            this.ime = "";
+            this.prezime = "";
+            this.godine = "";
+            this.Punoljetan = function () {
+                if(Number(this.godine) >= 18){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }//kraj metode Punoljetan()
+        }//kraj objekta
+
+        //prototip kako ispisati
+        Osoba.prototype.Ispis = function () {
+            return this.ime + ' ' + this.prezime + ' [' + this.godine + ']\n';
+        }
+        //izvršio upis
+        function upis() {
+            var covjek = new Osoba();
+            covjek.ime = prompt("Unesite svoje ime:");
+            covjek.prezime = prompt("Unesite svoje prezime: ");
+            covjek.godine = prompt("Unesite svoje godine: ");
+            return covjek;
+
+        }
+        //pripremio polje u koje punim
+        var polje = [];
+        //do while petlja
+        do {              
+            polje.push(upis());
+        } while (confirm("Želite li unijeti još koga?"));
+
+        //pripremio varijablu ispis
+        ispis = '';
+
+        //tražim uvjet ispisa zadan u zadatku
+        for (var i = 0; i < polje.length; i++) {
+            if(polje[i].Punoljetan()){
+                ispis += polje[i].Ispis();
+            }
+        }
+
+        alert(ispis);
+
+
+
+
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>00</title>
+    <script>
+        /*Napravite aplikaciju koja će od korisnika tražiti da upiše ime i prezime osobe. Nakon unosa 
+ispisuje se ime i prezime. Ispis riješite kroz metodu objekta. */      //kreiram objekt Osoba
+        function Osoba(ime, prezime) {
+            this.ime = ime;
+            this.prezime = prezime;
+        }
+        //prototip objekta Osoba
+        Osoba.prototype.fullName = function () {
+            return this.ime + ' ' + this.prezime;
+        }
+
+
+        //GLOBALNI DIO
+        var čovjek = new Osoba();
+        čovjek.ime = prompt("Vaše ime:");
+        čovjek.prezime = prompt("Vaše prezime:");
+        //ispis
+        alert(čovjek.fullName());
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

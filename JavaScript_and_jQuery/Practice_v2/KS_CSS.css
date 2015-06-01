@@ -1,0 +1,67 @@
+﻿/*U CSS-U PROMIJENI VELIČINE DIV-OVA I SVAKI HEIGHT, WIDTH KOJI MOŽEŠ PROMIJENITI, PROMIJENI REDOSLIJED SELEKTORA(opća kultura haha)
+    OVO KAJ SAM JA ZAKOMENTIRAO TO TI NI NE TREBA, NI NE UTJEČE NA STRANICU, ISTO JE I BEZ TOGA :)
+    KOMENTARE SVE OBRIŠI JER SAM IH JA TAKO OSTAVIO I POSLAO FULANOVIĆU
+    OVO DI JA IMAM DARKORANGE ILI LIGHTGRAY, TI STAVI SAMO ORANGE ILI GRAY,
+    plus ISPREMIJEŠAJ SELEKTORE, NEMOJ DA IMAJU ISTI REDOSLIJED KAO ŠTO JE OVDJE -> TO ĆE BITI DOSTA DA NE SKUŽI CSS*/
+/*body {
+    font-family:'Segoe UI';
+}*/
+
+/*h1, h2{
+    font-weight:bold;
+}*/
+
+/*div prvi sa zaglavljem*/
+/*OVDJE PROVJERI BEZ KOJEG SVOJSTVA MOŽEŠ JER MENI I NIJE BAŠ RADILO KAK SAM ZAMISLIO*/
+div > div:first-child{
+    height:80px;
+    vertical-align:central;
+    padding-left:5px;
+    padding-top:3px;
+    margin:auto;
+    text-align:left;       
+}
+
+/*div sređen -> širina i visina stranice*/
+body > div{
+    width:800px;
+    height:400px;    
+    margin:auto;
+}
+
+/*napravljena debela siva crta*/
+body > div > div:nth-child(2){        
+    border-bottom:4px solid gray;    
+}
+
+/*odvojeni paragrafi sivom linijom*/
+p{
+    border-top:2px solid lightgray;
+    padding-bottom:10px;
+    padding-top:10px;
+}
+
+li{
+    display:inline-block;    
+    margin:17px;
+}
+
+a:link{
+    text-decoration:none;
+    color:black;
+}
+
+/*TO ISTO NE DIRAJ*/
+a:hover{
+    background-color:gray;
+    padding:12px;
+    color:white;
+}
+
+/*KLASA KOJU ĆU DODATI ODREĐENOM LINKU 
+    KADA KLIKNEM NA NJEGA*/ /*TO SAM JA PROMIJENIO NE DIRAJ!!!!*/
+.link{
+    background-color:orange;
+    color:white;
+    padding:12px;
+}

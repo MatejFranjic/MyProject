@@ -1,0 +1,58 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>drugi</title>
+    <script>
+        /*Napravite aplikaciju koja unosi podatke o osobama dok god to korisnik želi. Osobu 
+definira ime, prezime i godine starosti. 
+Osoba ima metodu Punoljetan() koja vraća istinu ako je osoba punoljetna. Također Osoba premošćuje ugrađenu metodu 
+toString() čijim pozivom se vraćaju podaci osobe prema predlošku Ime Prezime 
+[godine]. Nakon unosa treba ispisati sve punoljetne osobe prema spomenutom 
+predlošku.. */
+        function Osoba() {
+            this.ime = "";
+            this.prezime = "";
+            this.godine = "";
+            this.Punoljetan = function () {
+                if(this.godine >= 18){
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+        }
+
+        Osoba.prototype.toString = function () {
+            return this.ime + ' ' + this.prezime + '[' + this.godine + ']\n';
+        }
+
+
+        //glavni dio
+        var osobe = new Array();
+        do {
+            var osoba = new Osoba();
+            osoba.ime = prompt("Ime osobe:");
+            osoba.prezime = prompt("Prezime osobe:");
+            osoba.godine = prompt("Godine osobe: ");
+            osobe.push(osoba);
+
+        } while (confirm("Želite li još?"));
+
+        var ispis = "";
+        for (var i = 0; i < osobe.length; i++) {
+            if(osobe[i].Punoljetan() == true){
+                ispis += osobe[i].toString();
+            }
+        }
+
+        alert(ispis);
+
+        /*-------------------------------*/
+       
+    </script>
+</head>
+<body>
+
+</body>
+</html>

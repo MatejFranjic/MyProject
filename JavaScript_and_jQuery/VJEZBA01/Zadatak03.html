@@ -1,0 +1,42 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>TREĆI</title>
+    <script>
+
+        /*Napravite aplikaciju koja od korisnika traži unos teksta i jednog znaka. 
+Nakon unosa treba prikazati ukupan broj znakova u tekstu i broj pojavljivanja 
+unesenog znaka u tekstu. 
+Traženi znak nije case sensitive. 
+Nakon izvršavanja aplikaciju je moguće pokrenuti ispočetka. */
+        do {
+
+        
+        var tekst = prompt("Unesite željeni tekst:");
+        var znak = prompt("Koji znak želite prebrojati?");
+        var broj = 0;
+        
+
+        for (var i = 0; i < tekst.length; i++) {
+            if(tekst[i].toLowerCase() === znak.toLowerCase()) {
+                broj++;
+            }
+        }
+
+        alert("Vaš tekst ima "+tekst.length+" znakova\n"+
+            "Vaš unešeni znak "+znak+" ponavlja se "+broj+" puta."
+            );
+        } while (confirm("Šjoš?"));
+
+
+
+
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,35 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script>
+        function prosti(broj) {
+
+            for (var i = 2; i < broj; i++) {
+                if(broj % i == 0){
+                    return false;
+                }
+            }
+            return true;
+        }
+        
+        //globalni dio
+        var gornjaGranica = parseInt(prompt("Unesite gornju granicu brojeva:"));
+
+        var polje = new Array();
+
+        for (var i = 2; i <= gornjaGranica; i++) {
+            if (prosti(i)) {
+                polje.push(i);
+            }
+        }
+
+        alert(polje);
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

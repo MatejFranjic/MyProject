@@ -1,0 +1,110 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Unos Osoba</title>
+    <script src="jquery-1.11.2.min.js"></script>
+    <script>
+        //funkcije
+        function dodajOpciju(txt, val) {
+            var option = $(document.createElement("option"));
+            var tekst = $(document.createTextNode(txt));
+            option.attr("value", val); //ubacujem vrijednost OIB-a kao atribut
+            option.append(tekst);
+            return option;
+        }        
+
+        //resetiram obrazac
+        function reset() {
+            $("#ime, #prezime, #oib").val("");
+            ime.focus();
+            $("p").html("");
+        }
+
+        function brojOsoba() {
+            var broj = document.getElementsByTagName("option").length;
+            return broj - 1;
+        }
+
+
+        //globalni dio
+        $(document).ready(function () {
+            $("span").html(brojOsoba());
+            $("#btnDodaj").on('click', function() {
+                var ime = $("#ime").val();
+                var prezime = $("#prezime").val();
+                var oib = $("#oib").val();
+
+                //ako nisu unešena sva polja
+                if (ime == "" || prezime == "" || oib == "") {
+                    var tekst = "Niste unijeli sva polja!";
+                    $("p").html(tekst);
+                    return;
+                }
+
+                var tekstOpcije = ime + ' ' + prezime;
+                $("select").append(dodajOpciju(tekstOpcije, oib));
+
+                reset(); //resetiram obrazac
+                $("span").html(brojOsoba());
+
+                //ispisivanje OIB-a i ostalih podataka
+                $("select").change(function () {
+                    var val = $(this).val();
+                    var imePrezime = $("select option:selected").text();
+                    var razmak = imePrezime.lastIndexOf(" ");
+                    var imeIspis = imePrezime.substring(0, razmak);
+                    var prezimeIspis = imePrezime.substring(razmak + 1, imePrezime.length);
+                    
+                    if(val == 0){
+                        reset();                        
+                        return;
+                    }
+
+                    $("#ime").val(imeIspis);
+                    $("#prezime").val(prezimeIspis);
+                    $("#oib").val(val);
+
+                });
+            });//kraj button-a
+
+            //dodavanje osoba na tipku enter
+            $(document).keypress(function (e) {
+                if (e.which == 13) {
+                    $("#btnDodaj").click();
+                }
+            });
+
+        });//kraj ready event-a
+
+    </script>
+</head>
+<body>
+    <label for="ime">
+        Ime:
+    </label>
+    <input id ="ime" type="text" value="" autofocus/>
+
+    <label for="prezime">
+        Prezime:
+    </label>
+    <input id="prezime" type="text" />
+    <br/><br />
+    <label for="oib">
+        Oib:
+    </label>
+    <input id="oib" type="text" />
+    <br/><br />
+
+    <input type="button" id="btnDodaj" value="Dodaj"/>
+    <br /><br />
+
+    Dodane osobe[<span></span>]:
+    <select id="ddl">
+        <option value="0">---odaberi---</option>
+
+    </select>
+    <br />
+    <p id="info" style="color:red;"></p>
+
+</body>
+</html>

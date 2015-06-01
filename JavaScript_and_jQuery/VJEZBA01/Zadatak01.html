@@ -1,0 +1,29 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script>
+        
+        /*Napravite aplikaciju koja za unesenu godinu ispisuje da li je godina prijestupna. 
+Godina je prijestupna ako je djeljiva sa 4, nije djeljiva sa 100, osim ako je djeljiva je sa 
+400. */
+        var godina = prompt("Unesite godinu:");
+
+        if(godina % 4 == 0 && (godina % 100 != 0 || godina % 400 == 0)){
+            alert("Godina je prijestupna!");
+        }
+        else{
+            alert("Godina nije prijestupna!");
+        }
+
+
+
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

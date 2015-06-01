@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script>
+
+        /*Napravite aplikaciju koja će učitavati ime i prezime studenta te postignute ocjene na 
+ 10 školskih predmeta. Nakon unosa aplikacija treba ispisati prosječnu ocjenu svih 
+ predmeta te ispisati sve predmete koji su završeni s odličnim uspjehom.  */
+
+        //var ime = prompt("Ime:");
+        //var prezime = prompt("Prezime:");
+        //var poljePredmetaIOcjena = [];
+        //var zbroj = 0;
+
+        //for (var i = 0; i < 10; i++) {
+        //    poljePredmetaIOcjena.push(prompt("Unesite " + (i + 1) + ". predmet: "));
+        //    poljePredmetaIOcjena.push(parseInt(prompt("Unesite "+(i + 1) + ". ocjenu: ")));
+        //}
+
+        //var ispis = "Student: " +ime +' ' + prezime+'\n';
+        //for (var i = 0; i < poljePredmetaIOcjena.length; i++) {
+        //    if(poljePredmetaIOcjena[i+1] == 5){
+        //        ispis += 'Predmet:' + poljePredmetaIOcjena[i] + ', ocjena: ' + poljePredmetaIOcjena[i + 1]+'\n';
+        //    }
+        //}
+        //for (var i = 1; i < poljePredmetaIOcjena.length; i+= 2) {
+        //    zbroj += parseInt(poljePredmetaIOcjena[i]);
+        //}
+
+
+        //ispis += "\nProsjek svih ocjena jest: " + (zbroj / (poljePredmetaIOcjena.length/2)).toFixed(2);
+
+        //alert(ispis);
+
+        var ime = prompt("Ime:");
+        var prezime = prompt("Prezime:");
+
+        var poljePredmeti = [];
+        var poljeOcjene = [];
+        zbroj = 0;
+
+        for (var i = 0; i < 10; i++) {
+            var predmet = prompt("Unesite " + (i + 1) + ". predmet:");
+            poljePredmeti.push(predmet);
+            var ocjena = prompt("Unesite " + (i + 1) + ". ocjenu:");
+            poljeOcjene.push(parseInt(ocjena));
+            zbroj += parseInt(poljeOcjene[i]);
+        }
+
+        ispis = "Student: " + ime + ' ' + prezime + '\n';
+        for (var i = 0; i < poljeOcjene.length; i++) {
+            if(poljeOcjene[i] == 5){
+                ispis += "Predmet: " + poljePredmeti[i] + ", ima ocjenu: " + poljeOcjene[i]+'\n';
+            }
+        }
+
+        ispis += "\nProsjek ocjena jest: "+(zbroj/poljeOcjene.length)
+
+        alert(ispis);
+
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script>
+        /*Napravite aplikaciju koja iz zadanog raspona ispisuje proste brojeve. Korisnik unosi 
+gornju granicu raspona dok je donja granica uvijek broj 2. */
+        function provjera(broj){
+            for (var i = 2; i < broj; i++) {
+                if(broj % i == 0){
+                    return false;
+                }
+            }        
+            return true;
+        }
+
+        var granica = parseInt(prompt("Unesite neki broj:"));
+
+        var ispis = new Array();
+        for (var i = 2; i <= granica; i++) {
+            if(provjera(i)){
+               ispis.push(i); 
+            }
+        }
+        alert(ispis);
+
+    </script>
+</head>
+<body>
+     
+</body>
+</html>

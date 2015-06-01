@@ -1,0 +1,87 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>3.2</title>
+    <script>
+        /*Kreirajte polje sa ovim članovima: 
+"Marko", 2, 3, 9, true, undefined, 4, 99, 101, false, "Pero" 
+Napravite aplikaciju koja će izdvojiti članove polja prema njihovom tipu. Napišite 
+funkciju koja prihvaća polje u koje su upisani inicijalni članovi polja i ostala polja za 
+svaki tip podataka. 
+Napišite funkciju Ispis() koja će ispisivati Osigurajte aplikaciju od neulovljenih iznimka. */
+
+        function provjera(polje, brojPolje, stringPolje, boolPolje) {
+            var vracaPoljePodataka; //u njega ću trpati ta polja
+            
+            var brojPolje2 = brojPolje;
+            var stringPolje2 = stringPolje;
+            var boolPolje2 = boolPolje;
+
+            try {
+
+                for (var i = 0; i < polje.length; i++) {
+                    //provjera za bool
+                     if (polje[i] == true || polje[i] == false) {
+                        boolPolje2.push(polje[i]);
+                        }
+                    //provjera za broj
+                    else if (!(isNaN(polje[i]))) {
+                        brojPolje2.push(polje[i]);
+                    }
+                    //nikada undefined neće doći do string-a
+                    else if(polje[i] === undefined){
+                        var greska = new Error();
+                        greska.name = 'Prljavi pokušaj'
+                        greska.message = 'Undefined nije ispravan tip podatka!';
+                        //alert(greska);                                               
+                    }
+                    //string RADI
+                    else if (polje[i] == polje[i].toString()) {
+                        stringPolje2.push(polje[i]);                        
+                    }                    
+                }
+            } catch (ex) {
+                alert(ex);
+            }
+
+            vracaPoljePodataka = [brojPolje2, boolPolje2, stringPolje2];
+            return vracaPoljePodataka;
+        }
+
+        //GLOBALNI DIO -> GLAVNI PROGRAM
+        var polje = ["Marko", 2, 3, 9, true, undefined, 4, 99, 101, false, "Pero"];
+        var brojPolje = new Array();
+        var stringPolje = new Array();
+        var boolPolje = new Array();
+        ispis = "";      
+       
+        var povratakFunkcije = provjera(polje, brojPolje, stringPolje, boolPolje);
+        brojPolje = povratakFunkcije[0];
+        boolPolje = povratakFunkcije[1];
+        stringPolje = povratakFunkcije[2];
+
+        //tražim najdulji string
+        var najdulji = stringPolje[0];
+        for (var i = 0; i < stringPolje.length; i++) {
+            if(stringPolje[i].length > najdulji.length){
+                najdulji = stringPolje[i];
+            }
+        }
+
+        //obrnuti redoslijed
+        var obrnutoPoljeBrojeva = brojPolje.toString().split("").reverse().join("");
+        //alert(obrnutoPoljeBrojeva);
+
+        ispis += "Elementi polja: [" + polje + "]\n\n";
+        ispis += "Najdulji string: " + najdulji;
+        ispis += "\nObrnuti redoslijed brojeva: " + obrnutoPoljeBrojeva;
+        ispis += "\nBroj booleana u polju: " + boolPolje.length;
+
+        alert(ispis);
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

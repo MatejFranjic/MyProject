@@ -1,0 +1,147 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title></title>
+    <script>
+        /*Napravite aplikaciju koja unosi podatke o osobama dok god to korisnik želi. 
+Osobu definira puno ime (ime i prezime), datum rođenja, automobil koji posjeduje i 
+metode koje vraćaju ime osobe i godine starosti osobe na dan kupnje automobila. 
+Automobil je definiran markom, datumom kupnje i metodama koje vraćaju dan na 
+koji je automobil kupljen i koliko je prošlo dana od kupnje.
+
+Ukoliko je automobil kupila osoba koja nije punoljetna diže se iznimka i uneseni 
+podaci se odbacuju (ne unose se u polje).*/
+
+        //DIO S OBJEKTIMA
+        function Osoba() {
+            this.ime = "";
+            this.prezime = "";
+            this.datumRodenja = "";
+            this.autoUPosjedu = "";
+            this.punoljetan = function () {
+                //tu trebam dobiti jel osoba punoljetna ili ne, od datuma rođenja do danas izračunati razliku u danima
+                var puno = this.datumRodenja;
+                puno = puno.split(".");
+                var pDan = parseInt(puno[0]);
+                var pMjesec = parseInt(puno[1]);
+                var pGodina = parseInt(puno[2]);
+                puno = pMjesec + '.' + pDan + '.' + pGodina;
+                puno = new Date(puno); //okrenuo sam datum koji je upisao korisnik
+
+                //sada trebam okrenuti današnji datum
+                var današnjiDan = new Date();
+                var dDan = današnjiDan.getDay();
+                var dMjesec = današnjiDan.getMonth();
+                var dGodina = današnjiDan.getFullYear();
+                današnjiDan = parseInt(dMjesec) + '.' + parseInt(dDan) + '.' + dGodina;
+                današnjiDan = new Date(današnjiDan);
+
+                var razlika = ((današnjiDan - puno) / 1000 / 60 / 60 / 24);
+                return Math.round(razlika);//TU DOBIVAM BROJ DANA KOLIKO JE OSOBA STARA
+            }
+        }
+
+        function Auto() {
+            this.marka = "";
+            this.datumKupnje = "";
+            this.danKupnje = function () {
+                var kupljen = this.datumKupnje;
+                kupljen = kupljen.split(".");
+                var kDan = parseInt(kupljen[0]); //dohvaćam dan, pa mjesec, pa godinu
+                var kMjesec = parseInt(kupljen[1]);
+                var kGodina = parseInt(kupljen[2]);
+                kupljen = parseInt(kMjesec) + '.' + parseInt(kDan) + '.' + parseInt(kGodina);//tu sve spojim kak mi paše
+                kupljen = new Date(kupljen);//tu zeznem funkciju Date()
+
+                return kupljen;//tu sam dobio datum kad je kupljen
+            };
+            //tu moram dobiti koliko je dana prošlo od kupovine toga auta do danas
+            this.prosliDani = function () {
+                var danas = new Date();
+                var dan = danas.getDay();
+                var mjesec = danas.getMonth();
+                var godina = danas.getFullYear();
+                danas = parseInt(mjesec) + '.' + parseInt(dan) + '.' + parseInt(godina);
+                danas = new Date(danas);
+
+                var razlika = ((danas - this.datumKupnje)/1000 / 60 /60 /24 );
+                return Math.round(razlika); //tu sam dobio koliko je auto star
+            };
+        }//kraj objekta Auto
+
+        Osoba.prototype.punoIme = function () {
+            return this.ime + ' ' + this.prezime;
+        }
+
+        //FUNKCIJSKI DIO
+        function upis() {
+            try {
+                var novaOsoba = new Osoba();
+                novaOsoba.ime = prompt("Unesite svoje ime:");
+                novaOsoba.prezime = prompt("Unesite svoje prezime:");
+                novaOsoba.datumRodenja = prompt("Unesite svoj datum rođenja:");
+                novaOsoba.autoUPosjedu = prompt("Koji auto trenutno posjedujete?");
+
+                if(!punoljetnost(novaOsoba.punoljetan())){
+                    var greska = new Error();
+                    greska.name = 'Range Error'
+                    greska.message = '\nAutomobil može kupiti samo punoljetna osoba';
+                    throw greska;
+                }
+                else {
+                    poljeOsoba.push(novaOsoba);
+                }
+            } catch (ex) {
+                alert(ex);
+                }
+
+        }//kraj funkcije upis()
+
+        function punoljetnost(datumOsobe) {
+            var punoljetan = new Date();
+            var dani = punoljetan.getDay();
+            var mjeseci = punoljetan.getMonth();
+            var godine = punoljetan.getFullYear();
+            punoljetan = parseInt(mjeseci) + '.' + parseInt(dani) + '.' + parseInt(godine);
+            punoljetan = new Date(punoljetan);
+            //dobio sam današnji datum i sad ga uspoređujem sa unešenim datumom kupca
+
+            //koliko je dana prošlo od 18 godina
+            var prosleGodine = new Date();
+            var pDan = prosleGodine.getDay();
+            var pMjesec = prosleGodine.getMonth();
+            var pGodine = prosleGodine.getFullYear() - 18;
+            prosleGodine = pMjesec + '.' + pDan + '.' + pGodine;
+            prosleGodine = new Date(prosleGodine);
+            console.log((punoljetan - prosleGodine) / 1000 / 60 / 60 / 24); //koliko dana iznosi 18 godina
+            var istina = ((punoljetan - prosleGodine) / 1000 / 60 / 60 / 24);
+            
+
+            //var razlika = prosleGodine <= datumOsobe; //TRUE ILI FALSE
+
+            if(istina <= datumOsobe){
+                return true;
+            } else {
+                return false;
+            }
+            
+        }
+
+        //globalni dio
+        var poljeOsoba = new Array(); //TU TRPAM OSOBE
+
+        do {
+            upis();
+        } while (confirm("Želite li unijeti još podataka?"));
+
+
+
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

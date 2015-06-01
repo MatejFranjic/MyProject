@@ -1,0 +1,67 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>DRUGI</title>
+    <script>
+        /*Napravite aplikaciju koja će učitavati ime i prezime studenta te postignute ocjene na 
+10 školskih predmeta. Nakon unosa aplikacija treba ispisati prosječnu ocjenu svih 
+predmeta te ispisati sve predmete koji su završeni s odličnim uspjehom. 
+Osobu i predmet predstavljaju objekti. 
+Prosječnu ocjenu i predmete završene s odličnim uspjehom vračaju metode objekta Osoba. */
+        function Osoba() {
+            this.ime = "";
+            this.prezime = "";
+            this.predmeti = new Array();
+            this.ocjene = new Array();                        
+        }//kraj objekta
+
+        Osoba.prototype.Prosjek = function () {
+            var zbroj = 0;
+            for (var i = 0; i < this.ocjene.length; i++) {
+                zbroj += parseInt(this.ocjene[i]);
+            }
+            return (zbroj / this.ocjene.length).toFixed(2);
+        } //prosjek DONE
+
+        Osoba.prototype.Odlican = function (ocjena) {            
+            if(ocjena == 5){
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+
+        //globalni dio
+        var student = new Osoba();
+        student.ime = prompt("Unesite ime studenta:");
+        student.prezime = prompt("Prezime:");
+        //upis predmeta i ocjena
+        for (var i = 0; i < 10; i++) {
+            student.predmeti.push(prompt("Unesite "+(i+1)+". predmet: "));
+            student.ocjene.push(parseInt(prompt("Unesite "+(i + 1) + ". ocjenu:")));
+        }
+
+        ispis = "Student " + student.ime + ' ' + student.prezime + '\n';
+        for (var i = 0; i < student.ocjene.length; i++) {
+            if(student.Odlican(student.ocjene[i])){
+                ispis += "Predmet: " + student.predmeti[i] + ", ocjena: " + student.ocjene[i]+"\n";
+            }
+        }
+        ispis += "\nProsjek ocjena jest: " + student.Prosjek();
+
+        alert(ispis);
+        
+
+
+
+    </script>
+</head>
+<body>
+
+
+
+
+
+</body>
+</html>

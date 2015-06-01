@@ -1,0 +1,121 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>2.1</title>
+    <script>
+
+        /*Od korisnika učitavajte podatke u polje dok god on to želi. Osigurajte da se u polje 
+ne mogu unijeti null vrijednosti (klik na Cancel opciju u Prompt prozoru). Nakon 
+unosa ispisati podatke prema prikazanom predlošku. */
+        //funkcija kojom NE DOZVOLJAVAM UNOS NEVAŽEĆIH PODATAKA KAO ŠTO SU NULL, PRAZAN STRING...
+        function unosPodatka() {
+            unos = prompt("Unesite neki podatak:");
+            if (unos == null || unos == "") {
+                alert("Unijeli ste nevažeći podatak! Molim ponovno pokušajte!");
+                unosPodatka();                
+            } else {
+                polje.push(unos);
+            }
+        }
+
+        //globalni dio
+        polje = new Array();
+        var unos;
+
+        do {
+            unosPodatka();          
+        } while (confirm("Želite li još?"));
+
+        //treba ispisati number string i bool
+
+        var poljeBroj = [];
+        var poljeBool = [];
+        var poljeString = new Array();
+        var broj = 0;
+        var bool = 0;
+        var string = 0;
+
+        //ima veze sa isNan()
+        for (var i = 0; i < polje.length; i++) {
+            var vrijednost = polje[i];
+            switch (polje[i].toLowerCase()) {
+                case 'true':
+                case 'false':
+                case '0':
+                case '1':
+                    poljeBool.push(Boolean(polje[i]));
+                    bool++;
+                    break;
+                default:
+                    if (!isNaN(vrijednost)) {
+                        poljeBroj.push(parseInt(vrijednost));
+                        broj++;
+                    }
+                    else {
+                        poljeString.push(vrijednost);
+                        string++;
+                    }
+
+            }
+        }
+
+        var ispis = "Ukupno upisano " + polje.length + " podataka.\n" + "Number: " + broj + "\nBool: " + bool + "\nString: " + string + "\n\n";
+
+        for (var i = 0; i < poljeBroj.length; i++) {
+            ispis += "typeof("+poljeBroj[i]+"): "+typeof(poljeBroj[i])+"\n"; 
+        }
+
+        for (var j = 0; j < poljeBool.length; j++) {
+            ispis += "typeof(" + poljeBool[j] + "): " + typeof (poljeBool[j]) + "\n";
+        }
+
+        for (var z = 0; z < poljeString.length; z++) {
+            ispis += "typeof(" + poljeString[z] + "): " + typeof (poljeString[z]) + "\n";
+        }
+
+            
+        alert(ispis);
+
+
+
+        /*
+        
+        for (var i = 0; i < polje.length; i++) {
+        var vrijednost = polje[i];
+
+        switch (polje[i].toLowerCase()) {
+            case "true":
+            case "false":
+            case "0":
+            case "1":
+                polje[i] = Boolean(polje[i]);
+                boolean++;
+                break;
+            default:
+                if (!isNaN(polje[i])) {
+                    polje[i] = Number(polje[i]);
+                    number++;
+                }
+                else
+                    string++;
+
+                break;
+        }
+        
+        
+        */
+
+        
+
+
+
+
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>

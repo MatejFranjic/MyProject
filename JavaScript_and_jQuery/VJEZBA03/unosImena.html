@@ -1,0 +1,43 @@
+﻿<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title></title>       
+    <script>
+
+        /*Napravite aplikaciju koja će učitavati imena od korisnika dokle 
+god on to želi. 
+• Imena koja korisnik unese spremajte u string varijablu na 
+način:
+– Pero,Marko,Maja,Ana,Iva
+• Nakon što završi unos korisniku se u alert prozoru ispisuje 
+svako ime u zasebnom retku i pored svakog imena stoji broj 
+slova od kojih se ime sastoji*/
+
+        //FUNKCIJE
+        function ispis(polje) {
+            var tekst = "";
+            for (var i = 0; i < polje.length; i++) {
+                tekst += polje[i] + " [" + polje[i].length + "]\n";
+            }
+            alert(tekst);
+        }
+
+        //GLOBALNI DIO
+        var poljeImena = new Array();
+
+        do {
+            var unos = prompt("Unesite ime:");
+            poljeImena.push(unos);
+        } while (confirm("Želite li unijeti još imena?"));
+
+        ispis(poljeImena);
+       
+
+    </script>
+</head>
+<body>
+    
+</body>
+</html>

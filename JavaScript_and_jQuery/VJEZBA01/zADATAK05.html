@@ -1,0 +1,50 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>PETI</title>
+    <script>
+        /*Napravite aplikaciju za unos imena. Nakon svakog upisanog imena aplikacija pita 
+Dodati još imena (d/n)? 
+Nakon unosa prikazuje se alert prozor s brojem upisanih imena i abecednim popisom 
+imena. Pored svakog imena stoji broj znakova od kojih se ime sastoji. */
+        function upis() {           
+            var unos = prompt("Unesite ime koje želite pohraniti:");
+            imena.push(unos);            
+        }
+
+        function jos() {
+            var Jos = prompt("Želite li još (d/n):");
+
+            if(Jos.toLowerCase() == 'd'){
+                return true;
+            }
+            else if(Jos.toLowerCase() == 'n'){
+                return false;
+            }
+            else {
+                alert("Krivi znak!!");
+            }
+        }
+
+        imena = []; //globalna je :P
+        do {
+            upis();
+        } while (jos());
+
+        imena.sort();
+        var ispis = "Vaša imena su:\n -----------\n ";
+
+        for (var i = 0; i < imena.length; i++) {
+            ispis += imena[i] + " [" + imena[i].length + "]\n";
+        }
+
+        alert(ispis);
+
+
+
+    </script>
+</head>
+<body>
+
+</body>
+</html>
