@@ -133,8 +133,10 @@ myApp.controller('theGame', ['$scope', '$log', function ($scope, $log) {
         }
 
 
-        if (bodovi == (promjena(tezina)) / 2) {
-            alert('Čestitam! Ostvarili ste: ' + bodovi + ' bodova!\nA vaše vrijeme je: '+vrijeme+' s\nAko želite ponovno odigrati stisnite F5');
+        if (bodovi == (promjena(tezina)) / 2 && vrijeme > 0) {
+            alert('Čestitam! Ostvarili ste: ' + bodovi + ' bodova!\nA vaše vrijeme je: '+vrijeme+' s\nAko želite ponovno odigrati, nakon OK, stisnite F5');
+        } else {
+            alert('Čestitam! Ostvarili ste '+bodovi+' bodova!\nAko želite ponovno igrati, nakon OK stisnite F5');
         }
 
     }//kraj function usporedba
