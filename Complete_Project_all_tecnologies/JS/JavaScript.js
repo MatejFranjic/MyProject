@@ -5,6 +5,7 @@ var myApp = angular.module('memoryApp', []);
 var prviClick;
 var drugiClick;
 var bodovi = 0;
+var vrijeme = 0;
 
 myApp.controller('theGame', ['$scope', '$log', function ($scope, $log) {
 
@@ -12,36 +13,24 @@ myApp.controller('theGame', ['$scope', '$log', function ($scope, $log) {
     $('div:nth-of-type(3)').hide();
     $('div:last-of-type > p').hide();
     $('#btnStartTime').hide();
-    $('#btnStop').hide();
-
-    //definiram bodove
-    $scope.points = 0;
+    $('#btnStop').hide();    
     
+    var tezina;
 
     //povući val iz odabranog gumba, klikom na start pojavljuju se divovi unutra
     //to preko for petlje
-
-    
-
     $('#btnStart').on('click', function () {
         $scope.radioValue = $('input[type=radio]:checked').attr('value');
 
-        //IIFE -> immediately-invoked function expression
-        //I could also put it in an outside function and call it and return
-        //the value exact the same way, but I chose this
-        var difficulty = (function (value) {
-            switch (value) {
-                case 'easy':
-                    return 6;
-                    break;
-                case 'hard':
-                    return 10;
-                    break;
-                case 'brutal':
-                    return 18;
-                    break;
-            }
-        })($scope.radioValue);
+        //ako nista nije odabrano
+        if ($scope.radioValue == undefined || $scope.radioValue == '') {
+            alert('Niste označili niti jednu težinu, molim odaberite težinu igre!');
+            return;
+        }
+
+        tezina = $scope.radioValue; //ubacujem odabranu težinu igre u varijablu tezina
+
+        var difficulty = promjena($scope.radioValue); //pretvaram težinu igre u broj preko funkcije promjena()
 
         //check
         $log.info($scope.radioValue);
@@ -108,6 +97,14 @@ myApp.controller('theGame', ['$scope', '$log', function ($scope, $log) {
         if ($(this).attr('id') != $('input[type=radio]:checked').attr('value') || $(this).attr('value') == 'x') {
             return;
         }
+
+        if (prviClick != undefined && drugiClick != undefined) {
+            $(prviClick).addClass('picture');
+            $(drugiClick).addClass('picture');
+            prviClick = undefined;
+            drugiClick = undefined;
+        }
+
         //mičem klasu prilikom klika i prikaže mi se background-color
         $(this).removeClass('picture');
         
@@ -124,29 +121,26 @@ myApp.controller('theGame', ['$scope', '$log', function ($scope, $log) {
             }
 
             //if AKO POGODIMO
-            if ($(prviClick).css('background-color') == $(drugiClick).css('background-color')) {
-                $scope.points += 10;                
+            if ($(prviClick).css('background-color') == $(drugiClick).css('background-color')) {                
                 $(prviClick).css('background-color', 'white');
                 $(drugiClick).css('background-color', 'white');
                 $(prviClick).attr('value', 'x');
                 $(drugiClick).attr('value', 'x');
                 prviClick = undefined;
                 drugiClick = undefined;
-            } else {
-                $(drugiClick).mouseout(function () {
-                    $(prviClick).addClass('picture');
-                    $(drugiClick).addClass('picture');
-                    prviClick = undefined;
-                    drugiClick = undefined;
-                });
-
-            }//kraj else-a
+                $('span').text(++bodovi);                
+            }            
         }
+
+
+        if (bodovi == (promjena(tezina)) / 2) {
+            alert('Čestitam! Ostvarili ste: ' + bodovi + ' bodova!\nA vaše vrijeme je: '+vrijeme+' s');
+        }
+
     }//kraj function usporedba
 
-    
-
 }]); //kraj theGame controllera
+
 
 
 //novi kontroler za vrijeme
@@ -154,6 +148,7 @@ myApp.controller('stopWatchController', ['$scope', '$timeout', function ($scope,
     $scope.value = 0;
 
     function countdown() {
+        vrijeme++;
         $scope.value++; //povećavam za 1
         $scope.timeout = $timeout(countdown, 1000); //pozivam tu istu funkciju svake sekunde
     }
@@ -175,12 +170,26 @@ myApp.controller('stopWatchController', ['$scope', '$timeout', function ($scope,
     $('#btnStop').on('click', function () {
         $("#btnStartTime").removeAttr('disabled');
         $(this).attr('disabled', 'disabled');
-    });
+    });        
 
 }]);
 
 
 //functions
+function promjena(value) {
+    switch (value) {
+        case 'easy':
+            return 6;
+            break;
+        case 'hard':
+            return 10;
+            break;
+        case 'brutal':
+            return 18;
+            break;
+    }
+}
+
 function addDiv(level) {
     var div = $(document.createElement('div'));
     div.attr('id', level);
