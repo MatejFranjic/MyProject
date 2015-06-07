@@ -2,11 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" ng-app="memoryApp">
 <head>
     <title>.:Memory:.</title>
-    <!--CSS files-->        
+    <!--CSS files-->
     <link href="CSS/CSS.css" rel="stylesheet" />
     <!--JS files-->
     <script src="JS/jquery-2.1.4.js"></script>
-    <script src="JS/angular.js"></script>   
+    <script src="JS/angular.js"></script>
+    <script src="JS/stopWatch.js"></script>
     <script src="JS/JavaScript.js"></script>
 </head>
 <body>
@@ -15,6 +16,7 @@
         <p>
             I hope you know how to play this game, if you don't, it's pretty simple. Just click on the square you wish, and it's color shall appear.
             Then click on another one to have a match, if you have a match, you will be rewarded with a point, but if you don't, who cares, the game goes on. Good luck!
+            P.S. If you want to track your completion time, press a button <b>Start Time</b>, if you don't just play for fun ;)
         </p>
     </div>
 
@@ -23,16 +25,19 @@
         <label>EASY<input type="radio" name="difficulty" value="easy" checked /></label>
         <label>HARD<input type="radio" name="difficulty" value="hard" /></label>
         <label>BRUTAL<input type="radio" name="difficulty" value="brutal" /></label> <br />
-        <input type="button" id="btnStart" name="btn" value="START" />
+        <input type="button" id="btnStart" name="btn" value="START"/>
     </div>
 
     <!--third div > BOJE-->
     <div ng-controller="theGame" id="gameBoard"></div>
 
     <!--fourth div inside a body tag -> dodajem vrijeme (možda) i broj pokušaja otvaranja, broj pogođenih parova-->
-    <div>
-        <p></p>
-        
+    <div ng-controller="stopWatchController">
+        <p>Points: {{bodovi}}</p>
+        <p>Timer: {{value}} s</p>
+        <!--Jednom kad kliknem ovaj gumb on treba nestati-->
+        <input type="button" id="btnStartTime" name="start" value="Start Time" ng-click="start()"/>
+        <input type="button" id="btnStop" value="Stop" ng-click="stop()" />
     </div>
 
 </body>

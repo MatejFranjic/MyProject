@@ -15,7 +15,7 @@ label[for]{
 }
 
 /*button*/
-input#btnStart{
+input[id ^= btn]{
     color:white;
     background-color:#808080;
     font-weight:bold;
@@ -91,6 +91,15 @@ div:nth-of-type(2){
     margin-left:40px;
     margin-top:30px;
     padding-left:12px;
+}
+
+/*zadnji DIV sa timer i bodovima*/
+div:last-of-type{
+    margin-top:0;
+    width:200px;
+    height:150px;
+    margin: auto;
+    padding: 5px;    
 }
 
 

@@ -1,17 +1,27 @@
-﻿////napraviti da se naslov svakim klikom mijenja, boja
-
+﻿//globalni dio
 var myApp = angular.module('memoryApp', []);
 
+
+var prviClick;
+var drugiClick;
+var bodovi = 0;
 
 myApp.controller('theGame', ['$scope', '$log', function ($scope, $log) {
 
     //na početku sakriti board s kartama dok korisnik ne odabere razinu težine i klikne start btn
-
     $('div:nth-of-type(3)').hide();
+    $('div:last-of-type > p').hide();
+    $('#btnStartTime').hide();
+    $('#btnStop').hide();
 
+    //definiram bodove
+    $scope.points = 0;
+    
 
     //povući val iz odabranog gumba, klikom na start pojavljuju se divovi unutra
     //to preko for petlje
+
+    
 
     $('#btnStart').on('click', function () {
         $scope.radioValue = $('input[type=radio]:checked').attr('value');
@@ -39,8 +49,9 @@ myApp.controller('theGame', ['$scope', '$log', function ($scope, $log) {
         $log.info(typeof ($scope.radioValue));
 
         //moving out the rules and start button and fadeIn the game board
-        $('body > div:first-child, body > div:nth-child(2)').fadeOut(); //upute i težina nestaju
+        $('body > div:first-child, body > div:nth-child(2), #btnStart').fadeOut(); //upute i težina nestaju
         $('div:nth-of-type(3)').addClass($scope.radioValue).fadeIn();
+        $('div:last-of-type > p, #btnStop, #btnStartTime').fadeIn();        
 
 
         var gameDiv = $('.' + $scope.radioValue);
@@ -82,9 +93,8 @@ myApp.controller('theGame', ['$scope', '$log', function ($scope, $log) {
 
         var broj = 1;
         for (var i = 0; i < colorArray.length; i++) {
-            //$(nesto).removeClass('picture');
+            //$(nesto).removeClass('picture'); //za lakšu provjeru
             divovi.children[i].setAttribute('style', 'background-color:' + colorArray[i]);
-
         }
 
         //klik event ide unutar jer se događa NAKON TOG KLIKA
@@ -93,58 +103,84 @@ myApp.controller('theGame', ['$scope', '$log', function ($scope, $log) {
 
     }); //kraj click eventa
 
+    //function inside because of closures
+    function usporedba() {
+        if ($(this).attr('id') != $('input[type=radio]:checked').attr('value') || $(this).attr('value') == 'x') {
+            return;
+        }
+        //mičem klasu prilikom klika i prikaže mi se background-color
+        $(this).removeClass('picture');
+        
+        //prvi klik
+        if (prviClick == undefined) {
+            prviClick = $(this);
+        } else {
+            drugiClick = $(this); //drugi klik
+
+            //ovo je kad kliknem na istoga 2x
+            if (prviClick.attr('value') == drugiClick.attr('value')) {
+                drugiClick = undefined;
+                return;
+            }
+
+            //if AKO POGODIMO
+            if ($(prviClick).css('background-color') == $(drugiClick).css('background-color')) {
+                $scope.points += 10;                
+                $(prviClick).css('background-color', 'white');
+                $(drugiClick).css('background-color', 'white');
+                $(prviClick).attr('value', 'x');
+                $(drugiClick).attr('value', 'x');
+                prviClick = undefined;
+                drugiClick = undefined;
+            } else {
+                $(drugiClick).mouseout(function () {
+                    $(prviClick).addClass('picture');
+                    $(drugiClick).addClass('picture');
+                    prviClick = undefined;
+                    drugiClick = undefined;
+                });
+
+            }//kraj else-a
+        }
+    }//kraj function usporedba
+
+    
+
 }]); //kraj theGame controllera
 
-//globalni dio
-var prviClick;
-var drugiClick;
+
+//novi kontroler za vrijeme
+myApp.controller('stopWatchController', ['$scope', '$timeout', function ($scope, $timeout) {    
+    $scope.value = 0;
+
+    function countdown() {
+        $scope.value++; //povećavam za 1
+        $scope.timeout = $timeout(countdown, 1000); //pozivam tu istu funkciju svake sekunde
+    }
+
+    //literalom start pozivam funkciju countdown
+    $scope.start = function () {
+        countdown();
+    }
+
+    $scope.stop = function () {
+        $timeout.cancel($scope.timeout);
+    }
+
+    $('#btnStartTime').on('click', function () {
+        $(this).attr('disabled', 'disabled');
+        $("#btnStop").removeAttr('disabled');
+    });
+
+    $('#btnStop').on('click', function () {
+        $("#btnStartTime").removeAttr('disabled');
+        $(this).attr('disabled', 'disabled');
+    });
+
+}]);
 
 
 //functions
-function usporedba() {
-    if ($(this).attr('id') != $('input[type=radio]:checked').attr('value') || $(this).attr('value') == 'x') {
-        return;
-    }
-
-
-    $(this).removeClass('picture');
-
-    var brojBodova = 0;
-
-    //prvi klik
-    if (prviClick == undefined) {
-        prviClick = $(this);
-    } else {
-        drugiClick = $(this); //drugi klik
-
-        //ovo je kad klikenm na istoga 2x
-        if (prviClick.attr('value') == drugiClick.attr('value')) {            
-            drugiClick = undefined;
-            return;
-        }
-
-        if ($(prviClick).css('background-color') == $(drugiClick).css('background-color')) {
-            $(prviClick).css('background-color', 'white');
-            $(drugiClick).css('background-color', 'white');
-            $(prviClick).attr('value', 'x');
-            $(drugiClick).attr('value', 'x');
-            prviClick = undefined;
-            drugiClick = undefined;
-        } else {
-            $(drugiClick).mouseout(function () {
-                $(prviClick).addClass('picture');
-                $(drugiClick).addClass('picture');
-                prviClick = undefined;
-                drugiClick = undefined;
-            });
-
-        }//kraj else-a
-    }
-
-}
-
-
-
 function addDiv(level) {
     var div = $(document.createElement('div'));
     div.attr('id', level);
@@ -161,8 +197,3 @@ function getRandomColor() {
     }
     return color;
 }
-
-/*PRVO TREBAM GURNUTI U POLJE TU BOJU KOJU UBACUJEM, ONDA JU DODATI NA ELEMENT
- AKO NE POSTOJI VIŠE OD 2 TAKVE BOJE U TOM POLJU, (I <=2)
- AKO POSTOJI, NE DODAJ, AKO NE POSTOJI DAJ MU
- */
