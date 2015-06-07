@@ -1,2 +1,98 @@
 ﻿body {
+    font-family:'Segoe UI';
 }
+
+div:first-of-type {
+    width:800px;
+    height:150px;   
+    margin:auto;
+    text-align:center; 
+    margin-bottom:0;  
+}
+
+label[for]{
+    font-weight:bold;
+}
+
+/*button*/
+input#btnStart{
+    color:white;
+    background-color:#808080;
+    font-weight:bold;
+    width:140px;
+    height:30px;
+    margin-top:5px;
+}
+
+/*div with radio and Start button*/
+div:nth-of-type(2){
+    width:400px;
+    height:50px;
+    margin:auto;    
+    text-align:center;
+    margin-bottom:20px;
+}
+
+
+/*DIV KOJI SADRŽI 'SLIKE'*/
+/*ovdje će se pojaviti slike nakon što korisnik odabere razine*/
+.easy {
+    width:800px;
+    height:600px;    
+    margin:auto;
+}
+
+/*HARD*/
+.hard {    
+    width:1000px;
+    height:600px;    
+    margin:auto;
+}
+
+/*ovaj je za odabir BRUTAL razine*/
+.brutal {
+    width:1200px;
+    height:670px;    
+    margin:auto;
+    margin-top:2px;
+}
+
+/*divovi za igru -> ng-controller='theGame'*/
+/*SVAKOM TOM DIV-U DODAJEM ID RAZINE KOJU ODABERE*/
+.picture {
+    background-image: url('../img/puzzle.jpg');
+}
+
+
+#easy{
+    width:200px;
+    height:200px;
+    margin:auto;    
+    float:left;    
+    margin-left:50px;
+    margin-top:70px;
+}
+
+#hard{    
+    width:150px;
+    height:200px;
+    margin:auto;    
+    float:left;    
+    margin-left:30px;
+    margin-top:70px;
+    padding-left:10px;
+}
+
+#brutal{
+    width:140px;
+    height:180px;
+    margin:auto;    
+    float:left;    
+    margin-left:40px;
+    margin-top:30px;
+    padding-left:12px;
+}
+
+
+
+

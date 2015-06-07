@@ -1,1 +1,168 @@
-﻿
+﻿////napraviti da se naslov svakim klikom mijenja, boja
+
+var myApp = angular.module('memoryApp', []);
+
+
+myApp.controller('theGame', ['$scope', '$log', function ($scope, $log) {
+
+    //na početku sakriti board s kartama dok korisnik ne odabere razinu težine i klikne start btn
+
+    $('div:nth-of-type(3)').hide();
+
+
+    //povući val iz odabranog gumba, klikom na start pojavljuju se divovi unutra
+    //to preko for petlje
+
+    $('#btnStart').on('click', function () {
+        $scope.radioValue = $('input[type=radio]:checked').attr('value');
+
+        //IIFE -> immediately-invoked function expression
+        //I could also put it in an outside function and call it and return
+        //the value exact the same way, but I chose this
+        var difficulty = (function (value) {
+            switch (value) {
+                case 'easy':
+                    return 6;
+                    break;
+                case 'hard':
+                    return 10;
+                    break;
+                case 'brutal':
+                    return 18;
+                    break;
+            }
+        })($scope.radioValue);
+
+        //check
+        $log.info($scope.radioValue);
+        $log.info(difficulty);
+        $log.info(typeof ($scope.radioValue));
+
+        //moving out the rules and start button and fadeIn the game board
+        $('body > div:first-child, body > div:nth-child(2)').fadeOut(); //upute i težina nestaju
+        $('div:nth-of-type(3)').addClass($scope.radioValue).fadeIn();
+
+
+        var gameDiv = $('.' + $scope.radioValue);
+        //po odabranoj razini težine stavljam divove unutar html-a
+        for (var i = 0; i < difficulty; i++) {
+            //pozivam funkciju addDiv() -> kojom appendam divove s obzirom na težinu igre
+            //svakom tom divu dodajem i ID
+
+            var div = addDiv($scope.radioValue);
+            div.attr('value', i);
+
+            gameDiv.append(div);
+
+            //sad treba tom DIV-u dodat i background color, ali koja se otkriva tek na klik
+            //znači preko css-a mu dodajem to svojstvo, ali treba spremiti u varijablu
+            //kako se nebi mijenjalo svakim klikom već da se mijenja samo nakon početka igre            
+        }
+
+        //ovo radi, boje su unutar polja
+        var colorArray = new Array();
+        for (var i = 0; i < (difficulty / 2) ; i++) {
+            var color = getRandomColor();
+            colorArray.push(color);
+        }
+
+        //duplanje podataka u polju colorArray
+        for (var z = 0; z < (difficulty / 2) ; z++) {
+            colorArray.push(colorArray[z]);
+        }
+
+        $log.log(colorArray); //provjera sadržaja colorArray
+
+        var brojac = 0;
+        var nesto = $('#gameBoard > #' + $scope.radioValue);
+
+        //alert(nesto.length);
+        var divovi = document.getElementById('gameBoard');
+
+
+        var broj = 1;
+        for (var i = 0; i < colorArray.length; i++) {
+            //$(nesto).removeClass('picture');
+            divovi.children[i].setAttribute('style', 'background-color:' + colorArray[i]);
+
+        }
+
+        //klik event ide unutar jer se događa NAKON TOG KLIKA
+        $('#easy, #hard, #brutal').on('click', usporedba);
+        //završetak klika u kliku (#easy ...)
+
+    }); //kraj click eventa
+
+}]); //kraj theGame controllera
+
+//globalni dio
+var prviClick;
+var drugiClick;
+
+
+//functions
+function usporedba() {
+    if ($(this).attr('id') != $('input[type=radio]:checked').attr('value') || $(this).attr('value') == 'x') {
+        return;
+    }
+
+
+    $(this).removeClass('picture');
+
+    var brojBodova = 0;
+
+    //prvi klik
+    if (prviClick == undefined) {
+        prviClick = $(this);
+    } else {
+        drugiClick = $(this); //drugi klik
+
+        //ovo je kad klikenm na istoga 2x
+        if (prviClick.attr('value') == drugiClick.attr('value')) {            
+            drugiClick = undefined;
+            return;
+        }
+
+        if ($(prviClick).css('background-color') == $(drugiClick).css('background-color')) {
+            $(prviClick).css('background-color', 'white');
+            $(drugiClick).css('background-color', 'white');
+            $(prviClick).attr('value', 'x');
+            $(drugiClick).attr('value', 'x');
+            prviClick = undefined;
+            drugiClick = undefined;
+        } else {
+            $(drugiClick).mouseout(function () {
+                $(prviClick).addClass('picture');
+                $(drugiClick).addClass('picture');
+                prviClick = undefined;
+                drugiClick = undefined;
+            });
+
+        }//kraj else-a
+    }
+
+}
+
+
+
+function addDiv(level) {
+    var div = $(document.createElement('div'));
+    div.attr('id', level);
+    div.addClass('picture');
+    return div;
+}
+
+//function for colors
+function getRandomColor() {
+    var letters = '0123456789ABCDEF'.split('');
+    var color = '#';
+    for (var i = 0; i < 6; i++) {
+        color += letters[Math.floor(Math.random() * 16)];
+    }
+    return color;
+}
+
+/*PRVO TREBAM GURNUTI U POLJE TU BOJU KOJU UBACUJEM, ONDA JU DODATI NA ELEMENT
+ AKO NE POSTOJI VIŠE OD 2 TAKVE BOJE U TOM POLJU, (I <=2)
+ AKO POSTOJI, NE DODAJ, AKO NE POSTOJI DAJ MU
+ */

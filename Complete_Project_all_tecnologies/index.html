@@ -1,15 +1,39 @@
 ﻿<!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" ng-app="memoryApp">
 <head>
-    <title>My Project</title>
+    <title>.:Memory:.</title>
+    <!--CSS files-->        
     <link href="CSS/CSS.css" rel="stylesheet" />
-    <script src="JS/jquery-2.1.4.min.js"></script>
-    <script src="JS/angular.min.js"></script>
+    <!--JS files-->
+    <script src="JS/jquery-2.1.4.js"></script>
+    <script src="JS/angular.js"></script>   
     <script src="JS/JavaScript.js"></script>
 </head>
 <body>
+    <div>
+        <h1>Memory</h1>
+        <p>
+            I hope you know how to play this game, if you don't, it's pretty simple. Just click on the square you wish, and it's color shall appear.
+            Then click on another one to have a match, if you have a match, you will be rewarded with a point, but if you don't, who cares, the game goes on. Good luck!
+        </p>
+    </div>
 
+    <div>
+        <label for="difficulty">Choose difficulty:</label>
+        <label>EASY<input type="radio" name="difficulty" value="easy" checked /></label>
+        <label>HARD<input type="radio" name="difficulty" value="hard" /></label>
+        <label>BRUTAL<input type="radio" name="difficulty" value="brutal" /></label> <br />
+        <input type="button" id="btnStart" name="btn" value="START" />
+    </div>
 
+    <!--third div > BOJE-->
+    <div ng-controller="theGame" id="gameBoard"></div>
+
+    <!--fourth div inside a body tag -> dodajem vrijeme (možda) i broj pokušaja otvaranja, broj pogođenih parova-->
+    <div>
+        <p></p>
+        
+    </div>
 
 </body>
 </html>
